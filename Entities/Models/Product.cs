@@ -10,13 +10,9 @@ namespace Entities.Models
 	public class Product
 	{
 		public int ProductId { get; set; }
-		[Required(ErrorMessage ="Product Name is Required.. ")]
 		public string? ProductName { get; set; } = string.Empty;
-
-		[Required(ErrorMessage = "Product Price is Required.. ")]
 		public decimal Price { get; set; }
-
-
-		// public string Description { get; set; }
+		public int? CategoryId { get; set; }
+		public Category? Category { get; set; }		
 	}
 }
