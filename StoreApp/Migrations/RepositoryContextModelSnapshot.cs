@@ -68,11 +68,17 @@ namespace StoreApp.Migrations
                     b.Property<int?>("CategoryId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("TEXT");
+
                     b.Property<decimal>("Price")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ProductName")
                         .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Summary")
                         .HasColumnType("TEXT");
 
                     b.HasKey("ProductId");
@@ -86,57 +92,71 @@ namespace StoreApp.Migrations
                         {
                             ProductId = 1,
                             CategoryId = 2,
+                            ImageUrl = "/images/1.jpg",
                             Price = 32500m,
-                            ProductName = "Bilgisayar"
+                            ProductName = "Bilgisayar",
+                            Summary = ""
                         },
                         new
                         {
                             ProductId = 2,
                             CategoryId = 2,
+                            ImageUrl = "/images/2.jpg",
                             Price = 3500m,
-                            ProductName = "Klavye"
+                            ProductName = "Klavye",
+                            Summary = ""
                         },
                         new
                         {
                             ProductId = 3,
                             CategoryId = 3,
+                            ImageUrl = "/images/3.jpg",
                             Price = 9850m,
-                            ProductName = "Monitör"
+                            ProductName = "Monitör",
+                            Summary = ""
                         },
                         new
                         {
                             ProductId = 4,
                             CategoryId = 2,
+                            ImageUrl = "/images/4.jpg",
                             Price = 2500m,
-                            ProductName = "Mouse"
+                            ProductName = "Mouse",
+                            Summary = ""
                         },
                         new
                         {
                             ProductId = 5,
                             CategoryId = 5,
+                            ImageUrl = "/images/5.jpg",
                             Price = 1500m,
-                            ProductName = "Deck"
+                            ProductName = "Deck",
+                            Summary = ""
                         },
                         new
                         {
                             ProductId = 6,
                             CategoryId = 1,
+                            ImageUrl = "/images/6.jpg",
                             Price = 25m,
-                            ProductName = "History"
+                            ProductName = "History",
+                            Summary = ""
                         },
                         new
                         {
                             ProductId = 7,
                             CategoryId = 1,
+                            ImageUrl = "/images/7.jpg",
                             Price = 45m,
-                            ProductName = "Hamlett"
+                            ProductName = "Hamlett",
+                            Summary = ""
                         });
                 });
 
             modelBuilder.Entity("Entities.Models.Product", b =>
                 {
                     b.HasOne("Entities.Models.Category", "Category")
-                        .WithMany("products")
+                        .WithMany("Products")
                         .HasForeignKey("CategoryId");
 
                     b.Navigation("Category");
@@ -144,7 +164,7 @@ namespace StoreApp.Migrations
 
             modelBuilder.Entity("Entities.Models.Category", b =>
                 {
-                    b.Navigation("products");
+                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }

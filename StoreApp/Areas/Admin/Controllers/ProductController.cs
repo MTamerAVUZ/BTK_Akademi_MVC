@@ -28,24 +28,32 @@ namespace StoreApp.Areas.Admin.Controllers
 			return View();
 		}
 
-		private SelectList GetCategoriesSelectList()
-		{
-			return new SelectList(_manager.CategoryService.GetAllCategories(false), "CategoryId", "CategoryName");
-		}
-
-
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public IActionResult Create([FromForm] ProductDtoForInsertion productDto)
+		public async Task<IActionResult> Create([FromForm] ProductDtoForInsertion productDto, IFormFile file)
 		{
+			ViewBag.Kategoriler = GetCategoriesSelectList();
 			if (ModelState.IsValid)
 			{
+				//file operation!! 
+				string path = Path.Combine(Directory.GetCurrentDirectory(),"wwwroot","images",file.FileName);   //   a/b/c/...
+
+				using (var stream = new FileStream(path,FileMode.Create))
+				{
+					await file.CopyToAsync(stream);
+				}
+				productDto.ImageUrl = String.Concat("/images/", file.FileName);  //concat ile /images/ ile dosya adını birleştirdik. 
+
 				_manager.ProductService.CreateProduct(productDto);
 				return RedirectToAction("Index");
 			}
 
 			return View(productDto);
 
+		}
+		private SelectList GetCategoriesSelectList()
+		{
+			return new SelectList(_manager.CategoryService.GetAllCategories(false), "CategoryId", "CategoryName");
 		}
 
 		[HttpGet]
@@ -59,15 +67,24 @@ namespace StoreApp.Areas.Admin.Controllers
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public IActionResult Update([FromForm] ProductDtoForUpdate product)
+		public async Task<IActionResult> Update([FromForm] ProductDtoForUpdate productDto, IFormFile file)
 		{
+			ViewBag.Kategoriler = GetCategoriesSelectList();
 			if (ModelState.IsValid)
 			{
-				_manager.ProductService.UpdateOneProduct(product);
+				//file operation!! 
+				string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", file.FileName);   //   a/b/c/...
+
+				using (var stream = new FileStream(path, FileMode.Create))
+				{
+					await file.CopyToAsync(stream);
+				}
+				productDto.ImageUrl = String.Concat("/images/", file.FileName);  //concat ile /images/ ile dosya adını birleştirdik. 
+				_manager.ProductService.UpdateOneProduct(productDto);
 				return RedirectToAction("Index");
 			}
 
-			return View(product);
+			return View(productDto);
 		}
 
 		

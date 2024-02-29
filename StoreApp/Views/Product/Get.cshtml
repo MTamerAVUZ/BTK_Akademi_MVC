@@ -1,18 +1,25 @@
 @model Product
 
 
+<div class="row">
+	<div class="col-md-12">
+		<div class="text-center my-3">
+			<h6 class="display-6">@Model.ProductName</h6>
 
-<h3>@Model.ProductName</h3>
-<h3>@Model.Price</h3>
+			<img class="img-fluid shadow rounded-3 my-3" src="@Model?.ImageUrl" alt="@Model.ProductName" />
+			<p class="lead text-danger my-3">@Model.Price.ToString("c")</p>
+			<div class="btn-group">
+				<a class="btn btn-primary" asp-controller="Home" asp-action="Index"><i class="fa-solid fa-house"></i>Home</a>
+				<a class="btn btn-outline-primary" asp-controller="Product" asp-action="Index">
+					<i class="fa-solid fa-microchip"></i>Products
+				</a>
+			</div>
 
-<div class="btn-group">
-    <a class="btn btn-primary" asp-controller="Home" asp-action="Index"><i class="fa-solid fa-house"></i>Home</a>
-    <a class="btn btn-outline-primary" asp-controller="Product" asp-action="Index"><i
-            class="fa-solid fa-microchip"></i>Products</a>
+		</div>
+	</div>
 </div>
 
 @section Header {
-    <div>
-        
-    </div>
+	<div>
+	</div>
 }

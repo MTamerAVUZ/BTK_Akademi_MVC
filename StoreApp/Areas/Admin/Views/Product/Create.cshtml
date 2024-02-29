@@ -6,11 +6,16 @@
 </div>
 
 
-<form asp-controller="Product" asp-action="Create" method="post">
+<form asp-controller="Product" asp-action="Create" method="post" enctype="multipart/form-data">
 	<div class="form-group my-3">
 		<label class="mb-3" asp-for="ProductName"></label>
 		<input asp-for="ProductName" class="form-control" />
 		<span class="text-danger" asp-validation-for="ProductName"></span>
+	</div>
+	<div class="form-group my-3">
+		<label class="mb-3" asp-for="Summary"></label>
+		<textarea asp-for="Summary" class="form-control" ></textarea>
+		<span class="text-danger" asp-validation-for="Summary"></span>
 	</div>
 	<div class="form-group my-3">
 		<label class="mb-3" asp-for="Price"></label>
@@ -18,14 +23,20 @@
 		<span class="text-danger" asp-validation-for="Price"></span>
 	</div>
 	<div class="form-group my-3">
+		<label class="mb-3" asp-for="ImageUrl"></label>
+		<input name="file" type="file" class="form-control" />
+		<span class="text-danger" asp-validation-for="ImageUrl"></span>
+	</div>
+	<div class="form-group my-3">
 		<label class="mb-3" asp-for="CategoryId"></label>
 		<select class="form-control" asp-for=CategoryId asp-items="ViewBag.Kategoriler">
 			<option value="0" selected disabled>Choose a Category</option>
 			@* @foreach (Category item in ViewBag.Categories)
 			{
-				<option value="@item.CategoryId">@item.CategoryName</option>
+			<option value="@item.CategoryId">@item.CategoryName</option>
 			} *@
 		</select>
+		<span class="text-danger" asp-validation-for="CategoryId" ></span>
 	</div>
 	<div class="form-group my-3 text-center">
 		<div class="btn-group">
