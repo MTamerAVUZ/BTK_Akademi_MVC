@@ -38,7 +38,9 @@ builder.Services.AddSingleton<Cart>();
 builder.Services.AddAutoMapper(typeof(Program));
 
 var app = builder.Build();
+
 app.UseSession();
+
 app.UseStaticFiles();
 
 app.UseHttpsRedirection();
