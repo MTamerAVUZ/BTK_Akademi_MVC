@@ -14,6 +14,15 @@ builder.Services.AddDbContext<RepositoryContext>(options =>
 options.UseSqlite(builder.Configuration.GetConnectionString("sqlconnection"), b => b.MigrationsAssembly("StoreApp"))
 );
 
+builder.Services.AddDistributedMemoryCache();  //session için önbellek
+builder.Services.AddSession(options =>
+{
+	options.Cookie.Name = "StoreApp.Session";
+	options.IdleTimeout=TimeSpan.FromMinutes(10);
+});
+
+
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 builder.Services.AddScoped<IRepositoryManager, RepositoryManager>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
@@ -26,6 +35,8 @@ builder.Services.AddScoped<IProductService, ProductManager>();
 builder.Services.AddAutoMapper(typeof(Program));
 
 var app = builder.Build();
+
+app.UseSession();
 
 app.UseStaticFiles();
 
